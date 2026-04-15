@@ -1,24 +1,66 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { UserPlus, Download, Upload, Users as UsersIcon, Shield, GraduationCap, Briefcase } from 'lucide-react';
-import { users as initialUsers, User }from '@/public/data/mockdata';
-import Header from '../components/Header';
-import UserTable from '../components/UserTable';
-import AddUserModal from '../components/AddUserModal';
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  UserPlus,
+  Download,
+  Upload,
+  Users as UsersIcon,
+  Shield,
+  GraduationCap,
+  Briefcase,
+} from "lucide-react";
+import Header from "../components/Header";
+import UserTable from "../components/UserTable";
+import AddUserModal from "../components/AddUserModal";
+import { User } from "../types/user";
+import { toast } from "sonner";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [users, setUsers] = useState<User[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-
-  const handleAddUser = (userData: Omit<User, 'id' | 'avatar'>) => {
-    const newUser: User = {
-      ...userData,
-      id: Math.max(...users.map(u => u.id)) + 1,
-      avatar: userData.name.split(' ').map(n => n[0]).join('').toUpperCase(),
+  const hasFetchUser = useRef<boolean>(false);
+  useEffect(() => {
+    if (hasFetchUser.current) return;
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch("/api/users", { method: "GET" });
+        const data = await res.json();
+        setUsers(data);
+        toast.success("Users fetched successfully");
+      } catch (error) {
+        toast.error("Unable to fetch users.");
+        console.log(error);
+      }
     };
-    setUsers([...users, newUser]);
+    fetchUsers();
+    hasFetchUser.current = true;
+  }, []);
+  const handleAddUser = async (userData: Omit<User, "id" | "avatar">) => {
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      }
+
+      const savedUser = await res.json();
+      setUsers((prev) => [...prev, savedUser]);
+      toast.success("New user created successfully");
+    } catch (error) {
+      toast.error("Unable to add new user.");
+      console.log("Server error:", error);
+    }
   };
 
   const handleEditUser = (user: User) => {
@@ -26,31 +68,59 @@ export default function UsersPage() {
     setIsModalOpen(true);
   };
 
-  const handleUpdateUser = (userData: Omit<User, 'id' | 'avatar'>) => {
+  const handleUpdateUser = (userData: Omit<User, "id" | "avatar">) => {
     if (editingUser) {
-      setUsers(users.map(u =>
-        u.id === editingUser.id
-          ? { ...u, ...userData, avatar: userData.name.split(' ').map(n => n[0]).join('').toUpperCase() }
-          : u
-      ));
+      setUsers(
+        users.map((u) =>
+          u.id === editingUser.id
+            ? {
+                ...u,
+                ...userData,
+                avatar: userData.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase(),
+              }
+            : u,
+        ),
+      );
       setEditingUser(null);
     }
   };
 
   const handleDeleteUser = (id: number) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(u => u.id !== id));
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      setUsers(users.filter((u) => u.id !== id));
     }
   };
 
-  const adminCount = users.filter(u => u.role === 'admin').length;
-  const staffCount = users.filter(u => u.role === 'staff').length;
-  const studentCount = users.filter(u => u.role === 'student').length;
-  const facultyCount = users.filter(u => u.role === 'faculty').length;
+  const adminCount = useMemo(
+    () => users.filter((u) => u.role === "admin").length,
+    [users],
+  );
+
+  const staffCount = useMemo(
+    () => users.filter((u) => u.role === "staff").length,
+    [users],
+  );
+
+  const studentCount = useMemo(
+    () => users.filter((u) => u.role === "student").length,
+    [users],
+  );
+
+  const facultyCount = useMemo(
+    () => users.filter((u) => u.role === "faculty").length,
+    [users],
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="User Management" subtitle="Manage all canteen users, roles, and permissions" />
+      <Header
+        title="User Management"
+        subtitle="Manage all canteen users, roles, and permissions"
+      />
 
       <div className="p-8">
         {/* Stats */}
@@ -69,7 +139,9 @@ export default function UsersPage() {
               <Shield className="w-6 h-6 text-red-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{adminCount + staffCount}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {adminCount + staffCount}
+              </p>
               <p className="text-sm text-gray-500">Admin & Staff</p>
             </div>
           </div>
@@ -96,7 +168,13 @@ export default function UsersPage() {
         {/* Actions */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <button className="btn-primary" onClick={() => { setEditingUser(null); setIsModalOpen(true); }}>
+            <button
+              className="btn-primary"
+              onClick={() => {
+                setEditingUser(null);
+                setIsModalOpen(true);
+              }}
+            >
               <UserPlus className="w-4 h-4" />
               Add User
             </button>
@@ -121,7 +199,10 @@ export default function UsersPage() {
         {/* Modal */}
         <AddUserModal
           isOpen={isModalOpen}
-          onClose={() => { setIsModalOpen(false); setEditingUser(null); }}
+          onClose={() => {
+            setIsModalOpen(false);
+            setEditingUser(null);
+          }}
           onSave={editingUser ? handleUpdateUser : handleAddUser}
           editUser={editingUser}
         />

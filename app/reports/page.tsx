@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   DollarSign,
   TrendingUp,
@@ -14,16 +14,35 @@ import {
   ArrowUpRight,
   ArrowDownRight,
 } from "lucide-react";
-import { weeklySales, orders, menuItems, users } from "@/public/data/mockdata";
+import { weeklySales, orders, menuItems } from "@/public/data/mockdata";
 import Header from "../components/Header";
 import SalesChart from "../components/SalesChart";
+import { User } from "../types/user";
+import { toast } from "sonner";
 
 export default function ReportsPage() {
   const totalWeeklyRevenue = weeklySales.reduce((acc, d) => acc + d.sales, 0);
   const totalWeeklyOrders = weeklySales.reduce((acc, d) => acc + d.orders, 0);
   const avgOrderValue = totalWeeklyRevenue / totalWeeklyOrders;
   //   const topCategory = "Main Course";
-
+  const [users, setUsers] = useState<User[]>([]);
+  const hasFetchUser = useRef<boolean>(false);
+  useEffect(() => {
+    if (hasFetchUser.current) return;
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch("/api/users", { method: "GET" });
+        const data = await res.json();
+        setUsers(data);
+        toast.success("Users fetched successfully");
+      } catch (error) {
+        toast.error("Unable to fetch users.");
+        console.log(error);
+      }
+    };
+    fetchUsers();
+    hasFetchUser.current = true;
+  }, []);
   const categoryBreakdown = menuItems.reduce(
     (acc, item) => {
       acc[item.category] =
@@ -83,7 +102,7 @@ export default function ReportsPage() {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white">
+          <div className="card bg-linear-to-br from-green-500 to-green-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-sm">Weekly Revenue</p>
@@ -101,7 +120,7 @@ export default function ReportsPage() {
             </div>
           </div>
 
-          <div className="card bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          <div className="card bg-linear-to-br from-blue-500 to-blue-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-sm">Weekly Orders</p>
@@ -117,7 +136,7 @@ export default function ReportsPage() {
             </div>
           </div>
 
-          <div className="card bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+          <div className="card bg-linear-to-br from-purple-500 to-purple-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-sm">Avg Order Value</p>
@@ -135,7 +154,7 @@ export default function ReportsPage() {
             </div>
           </div>
 
-          <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+          <div className="card bg-linear-to-br from-orange-500 to-orange-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-sm">Active Users</p>
