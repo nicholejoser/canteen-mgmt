@@ -1,14 +1,4 @@
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: 'admin' | 'staff' | 'student' | 'faculty';
-  status: 'active' | 'inactive';
-  avatar: string;
-  department: string;
-  joinDate: string;
-  balance: number;
-}
+import { User } from "@/app/types/user";
 
 export interface MenuItem {
   id: number;
@@ -37,19 +27,6 @@ export interface DailySales {
   sales: number;
   orders: number;
 }
-
-export const users: User[] = [
-  { id: 1, name: 'John Smith', email: 'john.smith@school.edu', role: 'admin', status: 'active', avatar: 'JS', department: 'Administration', joinDate: '2024-01-15', balance: 500 },
-  { id: 2, name: 'Sarah Johnson', email: 'sarah.j@school.edu', role: 'staff', status: 'active', avatar: 'SJ', department: 'Canteen', joinDate: '2024-02-01', balance: 250 },
-  { id: 3, name: 'Mike Davis', email: 'mike.d@school.edu', role: 'student', status: 'active', avatar: 'MD', department: 'Engineering', joinDate: '2024-01-20', balance: 150 },
-  { id: 4, name: 'Emily Brown', email: 'emily.b@school.edu', role: 'student', status: 'active', avatar: 'EB', department: 'Science', joinDate: '2024-03-10', balance: 75 },
-  { id: 5, name: 'David Wilson', email: 'david.w@school.edu', role: 'faculty', status: 'active', avatar: 'DW', department: 'Mathematics', joinDate: '2024-01-05', balance: 320 },
-  { id: 6, name: 'Lisa Anderson', email: 'lisa.a@school.edu', role: 'staff', status: 'inactive', avatar: 'LA', department: 'Canteen', joinDate: '2024-02-15', balance: 0 },
-  { id: 7, name: 'James Taylor', email: 'james.t@school.edu', role: 'student', status: 'active', avatar: 'JT', department: 'Arts', joinDate: '2024-04-01', balance: 200 },
-  { id: 8, name: 'Maria Garcia', email: 'maria.g@school.edu', role: 'faculty', status: 'active', avatar: 'MG', department: 'Literature', joinDate: '2024-01-25', balance: 410 },
-  { id: 9, name: 'Robert Martinez', email: 'robert.m@school.edu', role: 'student', status: 'inactive', avatar: 'RM', department: 'Business', joinDate: '2024-03-20', balance: 30 },
-  { id: 10, name: 'Jennifer Lee', email: 'jennifer.l@school.edu', role: 'student', status: 'active', avatar: 'JL', department: 'Nursing', joinDate: '2024-02-28', balance: 180 },
-];
 
 export const menuItems: MenuItem[] = [
   { id: 1, name: 'Classic Burger', category: 'Main Course', price: 8.99, available: true, image: '🍔', description: 'Juicy beef patty with fresh vegetables', soldToday: 45 },

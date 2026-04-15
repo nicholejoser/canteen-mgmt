@@ -16,6 +16,7 @@ import {
   LogOut,
   Bell,
 } from "lucide-react";
+import { toast } from "sonner";
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -29,8 +30,26 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const handleLogout = () => {
-    router.push("/");
+  const handleLogout = async () => {
+    const toastId = toast.loading("Logging out...");
+
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+
+      toast.success("Logged out successfully", {
+        id: toastId,
+      });
+
+      router.push("/login");
+    } catch (error) {
+      console.log("Logout error:", error);
+
+      toast.error("Logout failed", {
+        id: toastId,
+      });
+    }
   };
   return (
     <aside
@@ -109,7 +128,9 @@ export default function Sidebar() {
           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200 w-full cursor-pointer ${collapsed ? "justify-center px-2" : ""}`}
         >
           <LogOut className="w-5 h-5 shrink-0" />
-          {!collapsed && <span className="font-medium font-lexend">Logout</span>}
+          {!collapsed && (
+            <span className="font-medium font-lexend">Logout</span>
+          )}
         </button>
       </div>
 

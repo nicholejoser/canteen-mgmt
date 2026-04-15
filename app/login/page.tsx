@@ -3,16 +3,31 @@
 import { useState } from "react";
 import { Mail, Lock, UtensilsCrossed, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log("Login attempt:", { email, password });
-    router.push("/dashboard");
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Invalid credentials");
+      }
+
+      router.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+      toast.error("Login failed");
+    }
   };
 
   return (

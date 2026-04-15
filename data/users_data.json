@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1776241409184,
+    "name": "testing",
+    "email": "testing@gmail.com",
+    "role": "student",
+    "status": "active",
+    "department": "Engineering",
+    "joinDate": "2026-04-15",
+    "balance": 20000,
+    "password": "testing"
+  }
+]
