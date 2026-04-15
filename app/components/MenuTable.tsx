@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MenuItem } from '@/data/mockData';
 import { Edit, Trash2, Search, ToggleLeft, ToggleRight } from 'lucide-react';
+import { MenuItem } from '@/public/data/mockdata';
 
 interface MenuTableProps {
   items: MenuItem[];

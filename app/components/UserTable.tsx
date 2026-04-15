@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { User } from '@/data/mockData';
-import { Edit, Trash2, Eye, Search, Filter, MoreVertical, Shield, UserCheck, GraduationCap, Briefcase } from 'lucide-react';
+import { Edit, Trash2, Eye, Search, Filter, Shield, UserCheck, GraduationCap, Briefcase } from 'lucide-react';
+import { User } from '@/public/data/mockdata';
 
 interface UserTableProps {
   users: User[];

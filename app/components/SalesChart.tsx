@@ -1,8 +1,8 @@
 'use client';
 
+import { weeklySales } from '@/public/data/mockdata';
 import React from 'react';
-import { weeklySales } from '@/data/mockData';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 export default function SalesChart() {
   return (

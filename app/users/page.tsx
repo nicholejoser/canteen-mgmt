@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import Header from '@/components/Header';
-import UserTable from '@/components/UserTable';
-import AddUserModal from '@/components/AddUserModal';
-import { users as initialUsers, User } from '@/data/mockData';
 import { UserPlus, Download, Upload, Users as UsersIcon, Shield, GraduationCap, Briefcase } from 'lucide-react';
+import { users as initialUsers, User }from '@/public/data/mockdata';
+import Header from '../components/Header';
+import UserTable from '../components/UserTable';
+import AddUserModal from '../components/AddUserModal';
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>(initialUsers);

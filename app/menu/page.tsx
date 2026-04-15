@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import Header from '@/components/Header';
-import MenuTable from '@/components/MenuTable';
-import AddMenuModal from '@/components/AddMenuModal';
-import { menuItems as initialItems, MenuItem } from '@/data/mockData';
 import { Plus, Package, DollarSign, AlertTriangle, CheckCircle } from 'lucide-react';
+import { menuItems as initialItems, MenuItem }  from '@/public/data/mockdata';
+import Header from '../components/Header';
+import MenuTable from '../components/MenuTable';
+import AddMenuModal from '../components/AddMenuTable';
 
 export default function MenuPage() {
   const [items, setItems] = useState<MenuItem[]>(initialItems);
@@ -91,7 +91,7 @@ export default function MenuPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">${totalRevenue.toFixed(0)}</p>
-              <p className="text-sm text-gray-500">Today's Revenue</p>
+              <p className="text-sm text-gray-500">Today&#39;s Revenue</p>
             </div>
           </div>
         </div>

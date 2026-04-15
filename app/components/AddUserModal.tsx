@@ -1,50 +1,55 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { X, UserPlus, Save } from 'lucide-react';
-import { User } from '@/data/mockData';
+import React, { useState } from "react";
+import { X, UserPlus, Save } from "lucide-react";
+import { User } from "@/public/data/mockdata";
 
 interface AddUserModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (user: Omit<User, 'id' | 'avatar'>) => void;
+  onSave: (user: Omit<User, "id" | "avatar">) => void;
   editUser?: User | null;
 }
 
-export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddUserModalProps) {
+export default function AddUserModal({
+  isOpen,
+  onClose,
+  onSave,
+  editUser,
+}: AddUserModalProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    role: 'student' as User['role'],
-    department: '',
-    status: 'active' as User['status'],
+    name: "",
+    email: "",
+    role: "student" as User["role"],
+    department: "",
+    status: "active" as User["status"],
     balance: 0,
-    joinDate: new Date().toISOString().split('T')[0],
+    joinDate: new Date().toISOString().split("T")[0],
   });
 
-  useEffect(() => {
-    if (editUser) {
-      setFormData({
-        name: editUser.name,
-        email: editUser.email,
-        role: editUser.role,
-        department: editUser.department,
-        status: editUser.status,
-        balance: editUser.balance,
-        joinDate: editUser.joinDate,
-      });
-    } else {
-      setFormData({
-        name: '',
-        email: '',
-        role: 'student',
-        department: '',
-        status: 'active',
-        balance: 0,
-        joinDate: new Date().toISOString().split('T')[0],
-      });
-    }
-  }, [editUser, isOpen]);
+  //   useEffect(() => {
+  //     if (editUser) {
+  //       setFormData({
+  //         name: editUser.name,
+  //         email: editUser.email,
+  //         role: editUser.role,
+  //         department: editUser.department,
+  //         status: editUser.status,
+  //         balance: editUser.balance,
+  //         joinDate: editUser.joinDate,
+  //       });
+  //     } else {
+  //       setFormData({
+  //         name: '',
+  //         email: '',
+  //         role: 'student',
+  //         department: '',
+  //         status: 'active',
+  //         balance: 0,
+  //         joinDate: new Date().toISOString().split('T')[0],
+  //       });
+  //     }
+  //   }, [editUser, isOpen]);
 
   if (!isOpen) return null;
 
@@ -64,11 +69,20 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
               <UserPlus className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-white font-bold text-lg">{editUser ? 'Edit User' : 'Add New User'}</h2>
-              <p className="text-primary-200 text-xs">{editUser ? 'Update user information' : 'Fill in the details below'}</p>
+              <h2 className="text-white font-bold text-lg">
+                {editUser ? "Edit User" : "Add New User"}
+              </h2>
+              <p className="text-primary-200 text-xs">
+                {editUser
+                  ? "Update user information"
+                  : "Fill in the details below"}
+              </p>
             </div>
           </div>
-          <button onClick={onClose} className="text-white/70 hover:text-white transition-colors p-1">
+          <button
+            onClick={onClose}
+            className="text-white/70 hover:text-white transition-colors p-1"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -77,23 +91,31 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Full Name
+              </label>
               <input
                 type="text"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 className="input-field"
                 placeholder="Enter full name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email
+              </label>
               <input
                 type="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="input-field"
                 placeholder="user@school.edu"
               />
@@ -102,10 +124,17 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Role</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Role
+              </label>
               <select
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value as User['role'] })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    role: e.target.value as User["role"],
+                  })
+                }
                 className="input-field"
               >
                 <option value="student">Student</option>
@@ -115,12 +144,16 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Department</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Department
+              </label>
               <input
                 type="text"
                 required
                 value={formData.department}
-                onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, department: e.target.value })
+                }
                 className="input-field"
                 placeholder="e.g., Engineering"
               />
@@ -129,10 +162,17 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Status
+              </label>
               <select
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as User['status'] })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    status: e.target.value as User["status"],
+                  })
+                }
                 className="input-field"
               >
                 <option value="active">Active</option>
@@ -140,22 +180,33 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Balance ($)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Balance ($)
+              </label>
               <input
                 type="number"
                 min="0"
                 step="0.01"
                 value={formData.balance}
-                onChange={(e) => setFormData({ ...formData, balance: parseFloat(e.target.value) || 0 })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    balance: parseFloat(e.target.value) || 0,
+                  })
+                }
                 className="input-field"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Join Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Join Date
+              </label>
               <input
                 type="date"
                 value={formData.joinDate}
-                onChange={(e) => setFormData({ ...formData, joinDate: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, joinDate: e.target.value })
+                }
                 className="input-field"
               />
             </div>
@@ -172,7 +223,7 @@ export default function AddUserModal({ isOpen, onClose, onSave, editUser }: AddU
             </button>
             <button type="submit" className="btn-primary text-sm">
               <Save className="w-4 h-4" />
-              {editUser ? 'Update User' : 'Add User'}
+              {editUser ? "Update User" : "Add User"}
             </button>
           </div>
         </form>

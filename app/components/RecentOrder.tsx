@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { orders } from '@/data/mockData';
 import { Clock, CheckCircle2, XCircle, ChefHat, Package, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { orders } from '@/public/data/mockdata';
 
 const statusConfig = {
   pending: { label: 'Pending', color: 'bg-yellow-100 text-yellow-700', icon: Clock },

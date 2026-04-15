@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@tailwind components;
+/* @tailwind components; */
 
 :root {
   --background: #ffffff;
@@ -26,7 +26,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer components {
+/* @layer components {
   .sidebar-link {
     @apply flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200;
   }
@@ -58,7 +58,7 @@ body {
   .badge {
     @apply px-2.5 py-0.5 rounded-full text-xs font-semibold;
   }
-}
+} */
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

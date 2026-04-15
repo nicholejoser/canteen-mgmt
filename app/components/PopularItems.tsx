@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { menuItems } from '@/data/mockData';
 import { TrendingUp, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { menuItems } from '@/public/data/mockdata';
 
 export default function PopularItems() {
   const sortedItems = [...menuItems].sort((a, b) => b.soldToday - a.soldToday).slice(0, 5);
