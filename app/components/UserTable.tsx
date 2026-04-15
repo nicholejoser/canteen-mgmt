@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Edit, Trash2, Eye, Search, Filter, Shield, UserCheck, GraduationCap, Briefcase } from 'lucide-react';
-import { User } from '@/public/data/mockdata';
+import { User } from '../types/user';
 
 interface UserTableProps {
   users: User[];
@@ -73,7 +73,7 @@ export default function UserTable({ users, onEdit, onDelete }: UserTableProps) {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user) => {
+            {filteredUsers.map((user: User) => {
               const role = roleConfig[user.role];
               const RoleIcon = role.icon;
               return (

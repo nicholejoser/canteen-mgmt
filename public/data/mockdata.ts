@@ -1,5 +1,3 @@
-import { User } from "@/app/types/user";
-
 export interface MenuItem {
   id: number;
   name: string;

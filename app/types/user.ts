@@ -1,11 +1,11 @@
+export type Role = "admin" | "staff" | "student" | "faculty";
+export type Status = "active" | "inactive";
 export interface User {
   id: number;
   name: string;
   email: string;
-  // "admin" | "staff" | "student" | "faculty"
-  role: string;
-  //  "active" | "inactive"
-  status: string;
+  role: Role;
+  status: Status;
   avatar?: string;
   department: string;
   joinDate: string;
@@ -15,8 +15,8 @@ export interface User {
 export interface CreateUserInput {
   name: string;
   email: string;
-  role: string;
-  status: string;
+  role: Role;
+  status: Status;
   avatar: string;
   department: string;
   joinDate: string;
