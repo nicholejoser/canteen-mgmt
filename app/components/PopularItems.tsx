@@ -10,7 +10,7 @@ export default function PopularItems() {
   const maxSold = sortedItems[0]?.soldToday || 1;
 
   return (
-    <div className="card">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-gray-900">Popular Items Today</h3>
         <Link href="/menu" className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1 font-medium">

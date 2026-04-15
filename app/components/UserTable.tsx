@@ -29,7 +29,7 @@ export default function UserTable({ users, onEdit, onDelete }: UserTableProps) {
   });
 
   return (
-    <div className="card">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div className="relative flex-1 max-w-md">

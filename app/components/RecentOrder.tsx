@@ -17,7 +17,7 @@ export default function RecentOrders() {
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div className="card">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-gray-900">Recent Orders</h3>
         <Link href="/orders" className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1 font-medium">
