@@ -15,10 +15,10 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 import { weeklySales, orders, menuItems } from "@/public/data/mockdata";
-import Header from "../components/Header";
-import SalesChart from "../components/SalesChart";
-import { User } from "../types/user";
 import { toast } from "sonner";
+import { User } from "@/app/types/user";
+import SalesChart from "@/app/components/SalesChart";
+import Header from "@/app/components/Header";
 
 export default function ReportsPage() {
   const totalWeeklyRevenue = weeklySales.reduce((acc, d) => acc + d.sales, 0);
@@ -69,7 +69,7 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-lexend">
       <Header
         title="Reports & Analytics"
         subtitle="Comprehensive insights into your canteen operations"
@@ -79,21 +79,21 @@ export default function ReportsPage() {
         {/* Report Actions */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
               <Calendar className="w-4 h-4" />
               This Week
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
               <Calendar className="w-4 h-4" />
               This Month
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <button className="btn-primary">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer text-sm">
               <Download className="w-4 h-4" />
               Export PDF
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
               <FileText className="w-4 h-4" />
               Export CSV
             </button>

@@ -19,14 +19,16 @@ export default function AddUserModal({
 }: AddUserModalProps) {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    role: "student" as User["role"],
-    department: "",
-    status: "active" as User["status"],
-    balance: 0,
-    joinDate: new Date().toISOString().split("T")[0],
-    password: "",
+    name: editUser ? editUser.name : "",
+    email: editUser ? editUser.email : "",
+    role: editUser ? editUser.role : ("student" as User["role"]),
+    department: editUser ? editUser.department : "",
+    status: editUser ? editUser.status : ("active" as User["status"]),
+    balance: editUser ? editUser.balance : 0,
+    joinDate: editUser
+      ? editUser.joinDate
+      : new Date().toISOString().split("T")[0],
+    password: editUser ? editUser.password : "",
   });
 
   //   useEffect(() => {
@@ -65,7 +67,7 @@ export default function AddUserModal({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
         {/* Header */}
-        <div className="bg-linear-to-r from-primary-600 to-primary-700 px-6 py-4 flex items-center justify-between">
+        <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
               <UserPlus className="w-5 h-5 text-white" />
@@ -74,7 +76,7 @@ export default function AddUserModal({
               <h2 className="text-white font-bold text-lg">
                 {editUser ? "Edit User" : "Add New User"}
               </h2>
-              <p className="text-primary-200 text-xs">
+              <p className="text-blue-200 text-xs">
                 {editUser
                   ? "Update user information"
                   : "Fill in the details below"}
@@ -83,7 +85,7 @@ export default function AddUserModal({
           </div>
           <button
             onClick={onClose}
-            className="text-white/70 hover:text-white transition-colors p-1"
+            className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -247,11 +249,14 @@ export default function AddUserModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors text-sm"
+              className="px-4 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors text-sm cursor-pointer"
             >
               Cancel
             </button>
-            <button type="submit" className="btn-primary text-sm">
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer text-sm"
+            >
               <Save className="w-4 h-4" />
               {editUser ? "Update User" : "Add User"}
             </button>

@@ -41,7 +41,7 @@ export default function MenuTable({ items, onEdit, onDelete, onToggleAvailabilit
             <button
               key={cat}
               onClick={() => setFilterCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                 filterCategory === cat
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -75,7 +75,7 @@ export default function MenuTable({ items, onEdit, onDelete, onToggleAvailabilit
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => onToggleAvailability(item.id)}
-                  className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
                   title={item.available ? 'Mark Unavailable' : 'Mark Available'}
                 >
                   {item.available ? (
@@ -84,10 +84,10 @@ export default function MenuTable({ items, onEdit, onDelete, onToggleAvailabilit
                     <ToggleLeft className="w-5 h-5 text-gray-400" />
                   )}
                 </button>
-                <button onClick={() => onEdit(item)} className="p-1.5 hover:bg-yellow-50 rounded-lg transition-colors">
+                <button onClick={() => onEdit(item)} className="p-1.5 hover:bg-yellow-50 rounded-lg transition-colors cursor-pointer">
                   <Edit className="w-4 h-4 text-gray-400 hover:text-yellow-500" />
                 </button>
-                <button onClick={() => onDelete(item.id)} className="p-1.5 hover:bg-red-50 rounded-lg transition-colors">
+                <button onClick={() => onDelete(item.id)} className="p-1.5 hover:bg-red-50 rounded-lg transition-colors cursor-pointer">
                   <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-500" />
                 </button>
               </div>

@@ -197,7 +197,7 @@ export default function OrdersTable({
                             expandedOrder === order.id ? null : order.id,
                           )
                         }
-                        className="p-2 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
                       >
                         <Eye className="w-4 h-4 text-gray-400 hover:text-blue-500" />
                       </button>

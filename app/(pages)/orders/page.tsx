@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { ShoppingCart, Clock, CheckCircle, XCircle, Plus } from "lucide-react";
 import { orders as initialOrders, Order } from "@/public/data/mockdata";
-import Header from "../components/Header";
-import OrdersTable from "../components/OrdersTable";
+import Header from "@/app/components/Header";
+import OrdersTable from "@/app/components/OrdersTable";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
@@ -22,7 +22,7 @@ export default function OrdersPage() {
     .reduce((acc, o) => acc + o.total, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-lexend">
       <Header
         title="Order Management"
         subtitle="Track and manage all canteen orders"
@@ -87,16 +87,16 @@ export default function OrdersPage() {
         </div>
 
         {/* Revenue Banner */}
-        <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-2xl p-6 mb-8 text-white flex items-center justify-between">
+        <div className="bg-linear-to-r from-blue-600 to-blue-800 rounded-2xl p-6 mb-8 text-white flex items-center justify-between">
           <div>
-            <p className="text-primary-200 text-sm">
+            <p className="text-blue-200 text-sm">
               Total Revenue from Completed Orders
             </p>
             <p className="text-4xl font-bold mt-1">
               ${totalRevenue.toFixed(2)}
             </p>
           </div>
-          <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2 transition-colors">
+          <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2 transition-colors cursor-pointer">
             <Plus className="w-4 h-4" />
             New Order
           </button>
