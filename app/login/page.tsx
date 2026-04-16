@@ -20,7 +20,7 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Invalid credentials");
+        toast.error("Invalid email or password.");
       }
 
       router.push("/dashboard");

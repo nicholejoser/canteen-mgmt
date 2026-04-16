@@ -17,6 +17,7 @@ import {
   Bell,
 } from "lucide-react";
 import { toast } from "sonner";
+import { User } from "../types/user";
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -25,8 +26,10 @@ const menuItems = [
   { name: "Orders", icon: ShoppingCart, href: "/orders" },
   { name: "Reports", icon: BarChart3, href: "/reports" },
 ];
-
-export default function Sidebar() {
+interface SidebarProps {
+  currentUser: Partial<User> | null;
+}
+export default function Sidebar({ currentUser }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -75,7 +78,7 @@ export default function Sidebar() {
       {/* Collapse Button */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3 top-20 w-6 h-6 bg-primary-600 rounded-full flex items-center justify-center text-white hover:bg-primary-700 transition-colors z-10 shadow-lg"
+        className="absolute -right-3 top-20 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors z-10 shadow-lg cursor-pointer"
       >
         {collapsed ? (
           <ChevronRight className="w-3 h-3" />
@@ -143,9 +146,11 @@ export default function Sidebar() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-sm font-medium truncate">
-                John Smith
+                {currentUser?.name}
               </p>
-              <p className="text-gray-400 text-xs truncate">Administrator</p>
+              <p className="text-gray-400 text-xs truncate capitalize">
+                {currentUser?.role}
+              </p>
             </div>
             <Bell className="w-4 h-4 text-gray-400 cursor-pointer hover:text-white transition-colors" />
           </div>

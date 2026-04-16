@@ -1,5 +1,10 @@
 'use client';
 
+import Header from '@/app/components/Header';
+import PopularItems from '@/app/components/PopularItems';
+import RecentOrders from '@/app/components/RecentOrder';
+import SalesChart from '@/app/components/SalesChart';
+import StatsCard from '@/app/components/StatsCard';
 import {
   DollarSign,
   ShoppingCart,
@@ -10,15 +15,10 @@ import {
   AlertTriangle,
   CheckCircle,
 } from 'lucide-react';
-import Header from '../components/Header';
-import StatsCard from '../components/StatsCard';
-import SalesChart from '../components/SalesChart';
-import RecentOrders from '../components/RecentOrder';
-import PopularItems from '../components/PopularItems';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-lexend">
       <Header title="Dashboard" subtitle="Welcome back! Here's what's happening in your canteen today." />
 
       <div className="p-8">

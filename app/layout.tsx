@@ -1,6 +1,4 @@
-"use client"; // Required to use usePathname
-
-import Sidebar from "./components/Sidebar";
+"use client"; 
 import { Lexend, Geist } from "next/font/google";
 import "./globals.css";
 import { usePathname } from "next/navigation";
@@ -20,20 +18,16 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // Define routes where the sidebar should NOT appear
   const isAuthPage = pathname === "/login" || pathname === "/register";
 
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="bg-gray-50 font-sans">
         {isAuthPage ? (
-          // IF ON LOGIN: Just render the children (Login Page) without the sidebar layout
           <main>{children}</main>
         ) : (
-          // IF ON DASHBOARD: Render the Sidebar + children
           <div className="flex h-screen overflow-hidden">
             <Toaster richColors position="top-right" />
-            <Sidebar />
             <div className={`${lexend.variable} flex-1 overflow-y-auto`}>
               {children}
             </div>

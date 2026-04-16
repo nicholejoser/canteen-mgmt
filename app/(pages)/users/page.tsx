@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -15,10 +16,10 @@ import {
   GraduationCap,
   Briefcase,
 } from "lucide-react";
-import Header from "../components/Header";
-import UserTable from "../components/UserTable";
-import AddUserModal from "../components/AddUserModal";
-import { User } from "../types/user";
+import Header from "../../components/Header";
+import UserTable from "../../components/UserTable";
+import AddUserModal from "../../components/AddUserModal";
+import { User } from "../../types/user";
 import { toast } from "sonner";
 
 export default function UsersPage() {
@@ -30,10 +31,11 @@ export default function UsersPage() {
     if (hasFetchUser.current) return;
     const fetchUsers = async () => {
       try {
+        const toastID = toast.loading("Loading user data...");
         const res = await fetch("/api/users", { method: "GET" });
         const data = await res.json();
         setUsers(data);
-        toast.success("Users fetched successfully");
+        toast.success("Users loaded successfully", { id: toastID });
       } catch (error) {
         toast.error("Unable to fetch users.");
         console.log(error);
@@ -67,33 +69,66 @@ export default function UsersPage() {
     setEditingUser(user);
     setIsModalOpen(true);
   };
+  console.log(editingUser);
 
-  const handleUpdateUser = (userData: Omit<User, "id" | "avatar">) => {
-    if (editingUser) {
-      setUsers(
-        users.map((u) =>
-          u.id === editingUser.id
-            ? {
-                ...u,
-                ...userData,
-                avatar: userData.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .toUpperCase(),
-              }
-            : u,
-        ),
-      );
-      setEditingUser(null);
-    }
-  };
+  const handleUpdateUser = useCallback(
+    async (userData: Omit<User, "id" | "avatar">) => {
+      if (!editingUser) return;
 
-  const handleDeleteUser = (id: number) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      setUsers(users.filter((u) => u.id !== id));
+      try {
+        // 1. Generate the avatar and prepare the payload
+        const avatar = userData.name
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .toUpperCase();
+        const payload = { ...userData, id: editingUser.id, avatar };
+
+        // 2. Send the update to the backend
+        const res = await fetch("/api/users", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) throw new Error("Failed to update user");
+
+        const updatedUser = await res.json();
+
+        // 3. Update the UI only after a successful database save
+        setUsers((prevUsers) =>
+          prevUsers.map((u) => (u.id === editingUser.id ? updatedUser : u)),
+        );
+
+        setEditingUser(null);
+        toast.success("User updated successfully!");
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to update user.");
+      }
+    },
+    [editingUser],
+  );
+
+  const handleDeleteUser = useCallback(async (id: number) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      // 1. Send the delete request to the backend via URL parameter
+      const res = await fetch(`/api/users?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to delete user");
+
+      // 2. Remove the user from the UI after database confirms deletion
+      setUsers((prevUsers) => prevUsers.filter((u) => u.id !== id));
+      toast.success("User deleted successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete user.");
     }
-  };
+  }, []);
 
   const adminCount = useMemo(
     () => users.filter((u) => u.role === "admin").length,
@@ -116,7 +151,7 @@ export default function UsersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-lexend">
       <Header
         title="User Management"
         subtitle="Manage all canteen users, roles, and permissions"
@@ -169,20 +204,20 @@ export default function UsersPage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <button
-              className="btn-primary"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2 cursor-pointer"
               onClick={() => {
                 setEditingUser(null);
                 setIsModalOpen(true);
               }}
             >
-              <UserPlus className="w-4 h-4" />
+              <UserPlus className="shrink-0 w-4 h-4" />
               Add User
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
               <Upload className="w-4 h-4" />
               Import
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
               Export
             </button>
@@ -199,9 +234,11 @@ export default function UsersPage() {
         {/* Modal */}
         <AddUserModal
           isOpen={isModalOpen}
+          key={editingUser ? `edit-${editingUser.id}` : "add-new-user"}
           onClose={() => {
-            setIsModalOpen(false);
+            console.log("clicked");
             setEditingUser(null);
+            setIsModalOpen(false);
           }}
           onSave={editingUser ? handleUpdateUser : handleAddUser}
           editUser={editingUser}

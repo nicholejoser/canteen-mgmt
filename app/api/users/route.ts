@@ -74,3 +74,58 @@ export async function POST(req: Request) {
 
   return NextResponse.json(newUser, { status: 201 });
 }
+// PUT /api/users
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json();
+    const { id, ...updateData } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    const users = readUsers();
+    const userIndex = users.findIndex((u) => u.id === id);
+
+    if (userIndex === -1) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Merge the existing user data with the updated data
+    users[userIndex] = { ...users[userIndex], ...updateData };
+    writeUsers(users);
+
+    return NextResponse.json(users[userIndex], { status: 200 });
+  } catch  {
+    return NextResponse.json({ error: "Failed to update user" }, { status: 500 });
+  }
+}
+
+// DELETE /api/users?id=123
+export async function DELETE(req: Request) {
+  try {
+    // Extract the ID from the URL query parameters
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    let users = readUsers();
+    const initialLength = users.length;
+    
+    // Filter out the user we want to delete
+    users = users.filter((u) => u.id !== Number(id));
+
+    if (users.length === initialLength) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    writeUsers(users);
+
+    return NextResponse.json({ success: true, message: "User deleted" }, { status: 200 });
+  } catch  {
+    return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
+  }
+}

@@ -3,11 +3,18 @@
 import React, { useState } from "react";
 import { X, UtensilsCrossed, Save } from "lucide-react";
 import { MenuItem } from "@/public/data/mockdata";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 interface AddMenuModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (item: Omit<MenuItem  , "id" | "soldToday">) => void;
+  onSave: (item: Omit<MenuItem, "id" | "soldToday">) => void;
   editItem?: MenuItem | null;
 }
 
@@ -55,7 +62,7 @@ export default function AddMenuModal({
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
-        <div className="bg-gradient-to-r from-canteen-orange to-orange-600 px-6 py-4 flex items-center justify-between">
+        <div className="bg-linear-to-r from-orange-500 to-orange-600 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
               <UtensilsCrossed className="w-5 h-5 text-white" />
@@ -118,19 +125,41 @@ export default function AddMenuModal({
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Category
               </label>
-              <select
+              <Select
                 value={formData.category}
-                onChange={(e) =>
-                  setFormData({ ...formData, category: e.target.value })
+                onValueChange={(val) =>
+                  setFormData({ ...formData, category: val })
                 }
-                className="input-field"
               >
-                <option value="Main Course">Main Course</option>
-                <option value="Sides">Sides</option>
-                <option value="Salads">Salads</option>
-                <option value="Beverages">Beverages</option>
-                <option value="Desserts">Desserts</option>
-              </select>
+                <SelectTrigger className="w-full h-11.5! cursor-pointer">
+                  <SelectValue placeholder="Theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem
+                      value="Main Course"
+                      className="cursor-pointer h-9"
+                    >
+                      Main Course
+                    </SelectItem>
+                    <SelectItem value="Sides" className="cursor-pointer h-9">
+                      Sides
+                    </SelectItem>
+                    <SelectItem value="Salads" className="cursor-pointer h-9">
+                      Salads
+                    </SelectItem>
+                    <SelectItem
+                      value="Beverages"
+                      className="cursor-pointer h-9"
+                    >
+                      Beverages
+                    </SelectItem>
+                    <SelectItem value="Desserts" className="cursor-pointer h-9">
+                      Desserts
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -158,19 +187,29 @@ export default function AddMenuModal({
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Availability
               </label>
-              <select
+              <Select
                 value={formData.available.toString()}
-                onChange={(e) =>
+                onValueChange={(val) =>
                   setFormData({
                     ...formData,
-                    available: e.target.value === "true",
+                    available: val === "true",
                   })
                 }
-                className="input-field"
               >
-                <option value="true">Available</option>
-                <option value="false">Unavailable</option>
-              </select>
+                <SelectTrigger className="w-full h-11.5! cursor-pointer">
+                  <SelectValue placeholder="Theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="true" className="cursor-pointer h-9">
+                      Available
+                    </SelectItem>
+                    <SelectItem value="false" className="cursor-pointer h-9">
+                      Unavailable
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -193,13 +232,13 @@ export default function AddMenuModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors text-sm"
+              className="px-4 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors text-sm cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-canteen-orange hover:bg-orange-600 text-white px-4 py-2.5 rounded-lg font-medium transition-colors text-sm flex items-center gap-2"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2.5 rounded-lg font-medium transition-colors text-sm flex items-center gap-2 cursor-pointer"
             >
               <Save className="w-4 h-4" />
               {editItem ? "Update Item" : "Add Item"}

@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { Plus, Package, DollarSign, AlertTriangle, CheckCircle } from 'lucide-react';
 import { menuItems as initialItems, MenuItem }  from '@/public/data/mockdata';
-import Header from '../components/Header';
-import MenuTable from '../components/MenuTable';
-import AddMenuModal from '../components/AddMenuTable';
+import Header from '@/app/components/Header';
+import MenuTable from '@/app/components/MenuTable';
+import AddMenuModal from '@/app/components/AddMenuTable';
 
 export default function MenuPage() {
   const [items, setItems] = useState<MenuItem[]>(initialItems);
@@ -52,7 +52,7 @@ export default function MenuPage() {
   const unavailableCount = items.filter(i => !i.available).length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-lexend">
       <Header title="Menu Management" subtitle="Manage your canteen menu items and categories" />
 
       <div className="p-8">
@@ -99,7 +99,7 @@ export default function MenuPage() {
         {/* Actions */}
         <div className="flex items-center justify-between mb-6">
           <button
-            className="bg-canteen-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer"
             onClick={() => { setEditingItem(null); setIsModalOpen(true); }}
           >
             <Plus className="w-4 h-4" />
