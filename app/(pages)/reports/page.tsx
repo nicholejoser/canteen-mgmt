@@ -17,8 +17,8 @@ import {
 import { weeklySales, orders, menuItems } from "@/public/data/mockdata";
 import { toast } from "sonner";
 import { User } from "@/app/types/user";
-import SalesChart from "@/app/components/SalesChart";
-import Header from "@/app/components/Header";
+import SalesChart from "@/components/SalesChart";
+import Header from "@/components/Header";
 
 export default function ReportsPage() {
   const totalWeeklyRevenue = weeklySales.reduce((acc, d) => acc + d.sales, 0);

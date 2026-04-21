@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { User } from "../types/user";
+import { User } from "@/app/types/user";
 
 interface UserTableProps {
   users: User[];

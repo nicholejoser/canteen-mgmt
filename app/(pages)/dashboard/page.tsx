@@ -1,10 +1,10 @@
 'use client';
 
-import Header from '@/app/components/Header';
-import PopularItems from '@/app/components/PopularItems';
-import RecentOrders from '@/app/components/RecentOrder';
-import SalesChart from '@/app/components/SalesChart';
-import StatsCard from '@/app/components/StatsCard';
+import Header from '@/components/Header';
+import PopularItems from '@/components/PopularItems';
+import RecentOrders from '@/components/RecentOrder';
+import SalesChart from '@/components/SalesChart';
+import StatsCard from '@/components/StatsCard';
 import {
   DollarSign,
   ShoppingCart,

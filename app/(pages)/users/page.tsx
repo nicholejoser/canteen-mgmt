@@ -16,11 +16,11 @@ import {
   GraduationCap,
   Briefcase,
 } from "lucide-react";
-import Header from "../../components/Header";
-import UserTable from "../../components/UserTable";
-import AddUserModal from "../../components/AddUserModal";
+import Header from "../../../components/Header";
 import { User } from "../../types/user";
 import { toast } from "sonner";
+import UserTable from "@/components/UserTable";
+import AddUserModal from "@/components/AddUserModal";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -59,6 +59,7 @@ export default function UsersPage() {
       const savedUser = await res.json();
       setUsers((prev) => [...prev, savedUser]);
       toast.success("New user created successfully");
+      setEditingUser(null);
     } catch (error) {
       toast.error("Unable to add new user.");
       console.log("Server error:", error);
@@ -236,7 +237,7 @@ export default function UsersPage() {
           isOpen={isModalOpen}
           key={editingUser ? `edit-${editingUser.id}` : "add-new-user"}
           onClose={() => {
-            console.log("clicked");
+            console.log("clicked")
             setEditingUser(null);
             setIsModalOpen(false);
           }}

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { X, UserPlus, Save, Eye, EyeOff } from "lucide-react";
-import { User } from "../types/user";
+import { User } from "@/app/types/user";
 
 interface AddUserModalProps {
   isOpen: boolean;
@@ -56,13 +56,28 @@ export default function AddUserModal({
   //   }, [editUser, isOpen]);
 
   if (!isOpen) return null;
-
+  const clearFormData = () => {
+    setFormData({
+      name: "",
+      email: "",
+      role: "student" as User["role"],
+      department: "",
+      status: "active" as User["status"],
+      balance: 0,
+      joinDate: new Date().toISOString().split("T")[0],
+      password: "",
+    });
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
     onClose();
+    clearFormData();
   };
-
+  const handleClose = () => {
+    onClose();
+    clearFormData();
+  };
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
@@ -84,7 +99,7 @@ export default function AddUserModal({
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-white/70 hover:text-white transition-colors p-1 cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -248,7 +263,7 @@ export default function AddUserModal({
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="px-4 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors text-sm cursor-pointer"
             >
               Cancel

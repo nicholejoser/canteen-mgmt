@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { Plus, Package, DollarSign, AlertTriangle, CheckCircle } from 'lucide-react';
 import { menuItems as initialItems, MenuItem }  from '@/public/data/mockdata';
-import Header from '@/app/components/Header';
-import MenuTable from '@/app/components/MenuTable';
-import AddMenuModal from '@/app/components/AddMenuTable';
+import Header from '@/components/Header';
+import MenuTable from '@/components/MenuTable';
+import AddMenuModal from '@/components/AddMenuTable';
 
 export default function MenuPage() {
   const [items, setItems] = useState<MenuItem[]>(initialItems);

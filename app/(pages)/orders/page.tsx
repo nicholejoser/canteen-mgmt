@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { ShoppingCart, Clock, CheckCircle, XCircle, Plus } from "lucide-react";
 import { orders as initialOrders, Order } from "@/public/data/mockdata";
-import Header from "@/app/components/Header";
-import OrdersTable from "@/app/components/OrdersTable";
+import Header from "@/components/Header";
+import OrdersTable from "@/components/OrdersTable";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>(initialOrders);

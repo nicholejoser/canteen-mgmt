@@ -29,7 +29,7 @@
     "status": "active",
     "department": "Business Administration",
     "joinDate": "2026-04-10",
-    "balance": 1500.50,
+    "balance": 1500.5,
     "password": "password123"
   },
   {
@@ -40,7 +40,7 @@
     "status": "active",
     "department": "Computer Science",
     "joinDate": "2025-08-15",
-    "balance": 5200.00,
+    "balance": 5200,
     "password": "securepass2026"
   },
   {
@@ -51,7 +51,7 @@
     "status": "active",
     "department": "Nursing",
     "joinDate": "2026-01-20",
-    "balance": 340.00,
+    "balance": 340,
     "password": "nursingstudent1"
   },
   {
@@ -62,7 +62,7 @@
     "status": "inactive",
     "department": "Maintenance",
     "joinDate": "2024-11-05",
-    "balance": 0.00,
+    "balance": 0,
     "password": "maint_rtaylor"
   },
   {
@@ -73,7 +73,7 @@
     "status": "active",
     "department": "Human Resources",
     "joinDate": "2023-03-12",
-    "balance": 8500.00,
+    "balance": 8500,
     "password": "admin_hr_sarah"
   },
   {
@@ -106,7 +106,7 @@
     "status": "inactive",
     "department": "Arts and Humanities",
     "joinDate": "2025-08-20",
-    "balance": 15.00,
+    "balance": 15,
     "password": "art_mike25"
   },
   {
@@ -117,7 +117,7 @@
     "status": "active",
     "department": "Cafeteria",
     "joinDate": "2026-02-14",
-    "balance": 1250.00,
+    "balance": 1250,
     "password": "cafe_jessica"
   },
   {
@@ -128,7 +128,7 @@
     "status": "active",
     "department": "Architecture",
     "joinDate": "2026-04-15",
-    "balance": 890.00,
+    "balance": 890,
     "password": "arch_william"
   },
   {
@@ -139,7 +139,7 @@
     "status": "active",
     "department": "Psychology",
     "joinDate": "2018-08-10",
-    "balance": 6300.50,
+    "balance": 6300.5,
     "password": "psych_edavis"
   },
   {
@@ -150,7 +150,7 @@
     "status": "active",
     "department": "Information Technology",
     "joinDate": "2026-04-16",
-    "balance": 450.00,
+    "balance": 450,
     "password": "it_clee_26"
   },
   {
@@ -161,7 +161,7 @@
     "status": "active",
     "department": "Library",
     "joinDate": "2020-11-22",
-    "balance": 2400.00,
+    "balance": 2400,
     "password": "lib_amanda"
   },
   {
@@ -172,7 +172,7 @@
     "status": "inactive",
     "department": "Business Administration",
     "joinDate": "2024-01-15",
-    "balance": -50.00,
+    "balance": -50,
     "password": "bus_dan_24"
   },
   {
@@ -183,7 +183,7 @@
     "status": "active",
     "department": "Finance",
     "joinDate": "2019-06-30",
-    "balance": 12000.00,
+    "balance": 12000,
     "password": "fin_patricia"
   },
   {
@@ -205,7 +205,7 @@
     "status": "active",
     "department": "Biology",
     "joinDate": "2022-08-25",
-    "balance": 3800.00,
+    "balance": 3800,
     "password": "bio_rachel"
   },
   {
@@ -216,7 +216,7 @@
     "status": "active",
     "department": "Security",
     "joinDate": "2025-05-18",
-    "balance": 1650.00,
+    "balance": 1650,
     "password": "sec_brian_h"
   },
   {
@@ -227,7 +227,7 @@
     "status": "active",
     "department": "Nursing",
     "joinDate": "2026-04-01",
-    "balance": 110.00,
+    "balance": 110,
     "password": "nurs_megan"
   },
   {
@@ -238,7 +238,18 @@
     "status": "active",
     "department": "Computer Science",
     "joinDate": "2026-04-14",
-    "balance": 5600.00,
+    "balance": 5600,
     "password": "cs_anthony_k"
+  },
+  {
+    "id": 1776737660657,
+    "name": "adsfadsf",
+    "email": "asdfadsf@gmail.com",
+    "role": "student",
+    "status": "active",
+    "department": "adsfadsf",
+    "joinDate": "2026-04-21",
+    "balance": 10,
+    "password": "adsfasdf"
   }
 ]

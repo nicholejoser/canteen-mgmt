@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
-import Sidebar from "../components/Sidebar";
 import { User } from "../types/user";
+import MainLayout from "@/components/MainLayout";
+import Sidebar from "@/components/Sidebar";
 
 const readUsers = () => {
   try {
@@ -37,8 +38,9 @@ export default async function DashboardLayout({
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50 font-sans">
       <Sidebar currentUser={currentUser} />
-
-      <div className="flex-1 overflow-y-auto">{children}</div>
+      <MainLayout>
+        <div className="flex-1 overflow-y-auto">{children}</div>
+      </MainLayout>
     </div>
   );
 }
